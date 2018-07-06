@@ -31,5 +31,8 @@ Each channel is characterized by a set of attributes:				|
 	- p_gb - Probability of state switching: good -> bad			|
 	- p_bg - Probability of state switching: bad -> good			|
 ---------------------------------------------------------------------------------
-Sample results of error correction are stored in the Images folder.
+Sample results of error correction are stored in the Images folder.		|
+---------------------------------------------------------------------------------
+Imported libraries are stated in a generated requirements.txt file.		|
+---------------------------------------------------------------------------------
 
