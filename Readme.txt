@@ -22,7 +22,7 @@ The outline of a main algorithm of result checking:				|
 1) Prepare the input file.							|
 2) Send it throught a selected channel.						|
 3) Use a selected correction code to retrieve the original image.		|
-4) Compare the results with a online comparison tool.				|
+4) Compare the results with an image comparison tool.				|
 ---------------------------------------------------------------------------------
 Each channel is characterized by a set of attributes:				|
 - Binary Symetric Channel:							|
