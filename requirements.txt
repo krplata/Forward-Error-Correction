@@ -1,0 +1,14 @@
+bitarray==0.8.2
+cycler==0.10.0
+kiwisolver==1.0.1
+matplotlib==2.2.2
+numpy==1.14.3
+Pillow==5.1.0
+pyparsing==2.2.0
+python-dateutil==2.7.3
+PyTurboJPEG==1.1.2
+pytz==2018.4
+reedsolo==0.3
+scikit-commpy==0.3.0
+scipy==1.1.0
+six==1.11.0
