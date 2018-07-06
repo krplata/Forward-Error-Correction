@@ -3,8 +3,8 @@ import cv2
 from pyldpc import ldpc_images
 
 # Hamming codes with additional parity (SECDED)
-# Macierze kodu Hamminga(8,4)
 
+# Hamming(8,4) matrices
 G = np.array([
     [1, 1, 1, 0, 0, 0, 0, 1],
     [1, 0, 0, 1, 1, 0, 0, 1],
@@ -26,29 +26,22 @@ R = np.array([
     [0, 0, 0, 0, 0, 0, 1, 0]
 ])
 
-def compareArr(before, after):
-    counter = 0
-    for els in range(0, len(before)):
-        if before[els] != after[els]:
-            counter += 1
-    return counter
-
 
 def bsc_noise(tmr_arr):
     p = 0.000001
-    tmr_arr ^= np.random.random((len(tmr_arr),)) < p
+    tmr_arr ^= np.random.random((len(tmr_arr),)) < p    # negate bits with a set probability
     return tmr_arr
 
 
 def gilbert_noise(tmr_arr):
-    p_bg = 0.00000002
-    p_gb = 0.0000002
+    p_bg = 0.00002
+    p_gb = 0.0002
     current_state = 'G'
     y = []
     for it9 in range(0, len(tmr_arr)):
         if current_state == 'G':
-            if np.random.random() < p_gb:  # symulacja zmiany stanu z prawdopodobienstwiem pDZ
-                current_state = 'B'  # zmiana stanu
+            if np.random.random() < p_gb:  # Simulate the state change with a set probability
+                current_state = 'B'
             y.append(tmr_arr[it9])
         elif current_state == 'B':
             if np.random.random() < p_bg:
@@ -80,11 +73,10 @@ for it in range(len(x)):
 
             input_data = np.copy(x[it][it2][it3:it3+4])
 
-            data_vector = np.dot(input_data, G) % 2  # obliczony wektor danych
-            noised_data = np.asarray(gilbert_noise(np.copy(data_vector)))   # Zaklocenie danych
+            data_vector = np.dot(input_data, G) % 2  # Calculated input data vector
+            noised_data = np.asarray(gilbert_noise(np.copy(data_vector)))   # Data disruption
             # noised_data = bsc_noise(np.copy(data_vector))
-            error_counter = compareArr(data_vector, noised_data)
-            syndrome_noised = np.dot(H, noised_data.T) % 2          # Syndrom oraz wykrycie bledu
+            syndrome_noised = np.dot(H, noised_data.T) % 2          # Syndrome and error detection
             index_fix = syndrome_fix(syndrome_noised)
             if index_fix >= 0:
                 noised_data[index_fix] = 1 - noised_data[index_fix]
@@ -92,7 +84,6 @@ for it in range(len(x)):
             output_data = np.dot(R, noised_data.T)
             y[it][it2][it3:it3+4] = np.copy(output_data)
             it3 += 4
-            main_error_counter += error_counter
 
 image_final = ldpc_images.Bin2RGB(y)
 cv2.imwrite("outFileHammingGilbert5.png", image_final)

@@ -2,6 +2,12 @@ import numpy as np
 import cv2
 from pyldpc import ldpc_images
 
+# Interlacing has been implemented with the adam7 algorithm,
+# as recommended for the png file format.
+
+# Each channel has been implemented with the interlacing algorithm in mind.
+# Dude to the 7 step algorithm of interlacing, data had to be disrupted at each stage of transmission.
+
 
 def bsc_noise(x, y):
     it = 0

@@ -2,28 +2,22 @@ import reedsolo as reed
 import cv2
 import numpy as np
 
-def compare_arr(arr_1, arr_2):
-    counter = 0
-    for it in range(0, len(arr_1)):
-        if arr_1[it] != arr_2[it]:
-            counter += 1
-    print(counter)
 
 def bsc_noise(tmr_arr):
     p = 0.001
-    tmr_arr ^= np.random.random((len(tmr_arr), )) < p
+    tmr_arr ^= np.random.random((len(tmr_arr), )) < p    # negate bits with a set probability
     return tmr_arr
 
 
 def gilbert_noise(tmr_arr):
-    p_bg = 0.00000002
-    p_gb = 0.0000002
+    p_bg = 0.00002
+    p_gb = 0.0002
     current_state = 'G'
     y = []
     for it9 in range(0, len(tmr_arr)):
         if current_state == 'G':
-            if np.random.random() < p_gb:  # symulacja zmiany stanu z prawdopodobienstwiem pDZ
-                current_state = 'B'  # zmiana stanu
+            if np.random.random() < p_gb:  # Simulate the state change with a set probability
+                current_state = 'B'
             y.append(tmr_arr[it9])
         elif current_state == 'B':
             if np.random.random() < p_bg:
@@ -39,11 +33,11 @@ def string_array(array):
     return string
 
 
-def decToBin(number):# zamiana decymalnej na binarna
+def dec_to_bin(number):
     return format(number, '08b')
 
 
-def strToIntArray(string):# zamiana stringa na liste intow
+def str_to_int_array(string):
     array = []
     for i in range(0, len(string)):
         array.append(int(string[i]))
@@ -62,32 +56,22 @@ for i in range(0, len(img_arr)):
 
 img_data_bits = []
 syncDAta = []
-recivedData = []
+receivedData = []
 
-
+# Preparing the byte array for transmission
 for i in range(0, len(img_data)):
-    current_byte = decToBin(img_data[i])
-    current_byte = strToIntArray(current_byte)
+    current_byte = dec_to_bin(img_data[i])
+    current_byte = str_to_int_array(current_byte)
     for j in range(0, len(current_byte)):
         img_data_bits.append(current_byte[j])
 
-print("ilosc bitow:", len(img_data_bits))
+
 key = (rs.encode(img_data_bits))
-print("ilosc po zakodowaniu: ", len(key))
 
-#przesłanie sygnału przez BSC
-#transmission = bsc_noise(key)
-
-#compare_arr(transmission, key)
-
-#przesłanie sygnału przez Gilberta
 transmission = gilbert_noise(key)
+# transmission = bsc_noise(key)
 
-#dekodowanie i error correction
 result = rs.decode(transmission)
-
-print("po zdekodowaniu:")
-compare_arr(result, img_data_bits)
 
 byte_holder = []
 bit_ctr = 0
