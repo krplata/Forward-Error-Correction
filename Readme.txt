@@ -9,7 +9,7 @@ https://www.imgonline.com.ua/eng/similarity-percent.php|
 ---------------------------------------------------------------------------------
 Project Description:							        |
 									        |
-This implementation is a resulf of a university course:			        |
+This implementation is a result of a university course:			        |
 	"Reliability and Diagnostics of Digital Systems"		        |
 									        |
 The group was to provide an implementation of the following:		        |
@@ -20,7 +20,7 @@ The group was to provide an implementation of the following:		        |
 The outline of a main algorithm of result checking:				|
 										|
 1) Prepare the input file.							|
-2) Send it throught a selected channel.						|
+2) Send it through a selected channel.						|
 3) Use a selected correction code to retrieve the original image.		|
 4) Compare the results with an image comparison tool.				|
 ---------------------------------------------------------------------------------
