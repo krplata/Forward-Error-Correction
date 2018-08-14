@@ -1,7 +1,5 @@
 
-# Forward Error Correction
-## Authors: Krystian Plata, Konrad Olszewski	       
-## Project deadline: 18 June, 2018			       
+# Forward Error Correction			       
 ## Tools used:					       
 * Pycharm (Python IDE)				       
 *  [Online image comparison tool available here.](https://www.imgonline.com.ua/eng/similarity-percent.php)	       
